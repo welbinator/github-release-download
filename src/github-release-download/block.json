@@ -1,0 +1,25 @@
+{
+	"apiVersion": 2,
+	"name": "github-release-download/block",
+	"title": "GitHub Release Download",
+	"category": "widgets",
+	"icon": "download",
+	"description": "A button that downloads the latest release from a GitHub repository.",
+	"supports": {
+	  "html": false
+	},
+	"attributes": {
+	  "buttonText": {
+		"type": "string",
+		"default": "Download from GitHub"
+	  },
+	  "repoUrl": {
+		"type": "string",
+		"default": ""
+	  }
+	},
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./style-index.css",
+	"viewScript": "file:./view.js"
+  }
+  
