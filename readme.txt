@@ -1,55 +1,27 @@
 === Github Release Download ===
-Contributors:      The WordPress Contributors
+Contributors:      James Welbes
 Tags:              block
 Tested up to:      6.7
-Stable tag:        0.1.0
+Stable tag:        1.0.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
-Example block scaffolded with Create Block tool.
+Block that adds a button users can use to download the latest release from your github repo.
 
 == Description ==
 
-This is the long description. No limit, and you can use Markdown (as well as in the following sections).
+GitHub Release Download is a simple block plugin for WordPress that allows you to create a customizable button that downloads the latest release from any public GitHub repository.
 
-For backwards compatibility, if this section is missing, the full length of the short description will be used, and
-Markdown parsed.
+Just enter the repository URL (e.g. https://github.com/user/repo) and customize the button text in the editor. On the front end, the button dynamically fetches the latest release using the GitHub API. If the release has downloadable assets, the first one is downloaded. If not, the plugin automatically falls back to the auto-generated source ZIP for the release tag.
+
+No PHP rendering is required — everything is handled via JavaScript using the WordPress block system and AJAX.
 
 == Installation ==
 
-This section describes how to install the plugin and get it working.
-
-e.g.
-
-1. Upload the plugin files to the `/wp-content/plugins/github-release-download` directory, or install the plugin through the WordPress plugins screen directly.
-1. Activate the plugin through the 'Plugins' screen in WordPress
-
-
-== Frequently Asked Questions ==
-
-= A question that someone might have =
-
-An answer to that question.
-
-= What about foo bar? =
-
-Answer to foo bar dilemma.
-
-== Screenshots ==
-
-1. This screen shot description corresponds to screenshot-1.(png|jpg|jpeg|gif). Note that the screenshot is taken from
-the /assets directory or the directory that contains the stable readme.txt (tags or trunk). Screenshots in the /assets
-directory take precedence. For example, `/assets/screenshot-1.png` would win over `/tags/4.3/screenshot-1.png`
-(or jpg, jpeg, gif).
-2. This is the second screen shot
+If you don't know how to install a plugin, this plugin isn't for you.
 
 == Changelog ==
 
-= 0.1.0 =
+= 1.0.0 =
 * Release
 
-== Arbitrary section ==
-
-You may provide arbitrary sections, in the same format as the ones above. This may be of use for extremely complicated
-plugins where more information needs to be conveyed that doesn't fit into the categories of "description" or
-"installation." Arbitrary sections will be shown below the built-in sections outlined above.
