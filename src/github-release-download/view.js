@@ -6,8 +6,6 @@ document.addEventListener('DOMContentLoaded', function () {
 			const apiUrl = button.getAttribute('data-api-url');
 			if (!apiUrl) return alert('Missing GitHub API URL.');
 
-			button.textContent = 'Fetching...';
-
 			try {
 				const response = await fetch(`/wp-admin/admin-ajax.php?action=get_release_data&url=${encodeURIComponent(apiUrl)}`);
 				const data = await response.json();
