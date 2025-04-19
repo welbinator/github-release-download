@@ -16,6 +16,14 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
+
+// Define plugin constants
+define( 'GITHUB_RELEASE_DOWNLOAD_VERSION', '1.3.2' );
+define( 'GITHUB_RELEASE_DOWNLOAD_PATH', plugin_dir_path( __FILE__ ) );
+define( 'GITHUB_RELEASE_DOWNLOAD_URL', plugin_dir_url( __FILE__ ) );
+define( 'GITHUB_RELEASE_DOWNLOAD_MIN_WP_VERSION', '5.8' );
+define( 'GITHUB_RELEASE_DOWNLOAD_MIN_PHP_VERSION', '7.4' );
+
 /**
  * Behind the scenes, it also registers all assets so they can be enqueued
  * through the block editor in the corresponding context.
