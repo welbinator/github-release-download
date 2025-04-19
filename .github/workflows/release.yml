@@ -15,14 +15,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Create temporary directory for packaging
-      - name: Create temporary directory
-        run: mkdir temp_dir
-
-      # Copy all project files to the temp_dir, excluding specific files/folders
-      - name: Copy all files except excluded ones
+      # Create plugin folder and copy project files into it, excluding unnecessary ones
+      - name: Copy all files to plugin folder (excluding specified files)
         run: |
-          rsync -av --progress ./ temp_dir/ \
+          mkdir github-release-download
+          rsync -av ./ github-release-download/ \
             --exclude '.git' \
             --exclude '.github' \
             --exclude 'node_modules' \
@@ -34,12 +31,6 @@ jobs:
             --exclude 'src' \
             --exclude 'package-lock.json' \
             --exclude 'package.json'
-
-      # Rename directory to the desired folder name
-      - name: Move contents to plugin folder
-        run: |
-            mkdir github-release-download
-            mv temp_dir/* github-release-download/
 
       # Zip the packaged files
       - name: Create zip archive
