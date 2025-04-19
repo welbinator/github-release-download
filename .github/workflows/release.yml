@@ -31,11 +31,15 @@ jobs:
             --exclude '.gitignore' \
             --exclude 'README.md' \
             --exclude '.env' \
-            --exclude 'src'
+            --exclude 'src' \
+            --exclude 'package-lock.json' \
+            --exclude 'package.json'
 
       # Rename directory to the desired folder name
-      - name: Rename directory
-        run: mv temp_dir github-release-download
+      - name: Move contents to plugin folder
+        run: |
+            mkdir github-release-download
+            mv temp_dir/* github-release-download/
 
       # Zip the packaged files
       - name: Create zip archive
