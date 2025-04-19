@@ -30,7 +30,8 @@ jobs:
             --exclude '.env' \
             --exclude 'src' \
             --exclude 'package-lock.json' \
-            --exclude 'package.json'
+            --exclude 'package.json' \
+            --exclude 'github-release-download'
 
       # Zip the packaged files
       - name: Create zip archive
