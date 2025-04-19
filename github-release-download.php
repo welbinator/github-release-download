@@ -1,11 +1,11 @@
 <?php
 /**
  * Plugin Name:       Github Release Download
- * Description:       Example block scaffolded with Create Block tool.
- * Version:           0.1.0
+ * Description:       Block that adds a button users can use to download the latest release from your github repo.
+ * Version:           1.0.0
  * Requires at least: 6.7
  * Requires PHP:      7.4
- * Author:            The WordPress Contributors
+ * Author:            James Welbes
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       github-release-download
