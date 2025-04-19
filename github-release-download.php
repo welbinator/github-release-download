@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Github Release Download
  * Description:       Block that adds a button users can use to download the latest release from your github repo.
- * Version:           1.0.0
+ * Version:           1.0.2
  * Requires at least: 6.7
  * Requires PHP:      7.4
  * Author:            James Welbes
