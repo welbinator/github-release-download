@@ -24,6 +24,10 @@ define( 'GITHUB_RELEASE_DOWNLOAD_URL', plugin_dir_url( __FILE__ ) );
 define( 'GITHUB_RELEASE_DOWNLOAD_MIN_WP_VERSION', '5.8' );
 define( 'GITHUB_RELEASE_DOWNLOAD_MIN_PHP_VERSION', '7.4' );
 
+if ( file_exists( GITHUB_RELEASE_DOWNLOAD_PATH . 'github-update.php' ) ) {
+	include_once GITHUB_RELEASE_DOWNLOAD_PATH . 'github-update.php';
+}
+
 /**
  * Behind the scenes, it also registers all assets so they can be enqueued
  * through the block editor in the corresponding context.
