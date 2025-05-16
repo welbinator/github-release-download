@@ -1,0 +1,42 @@
+<?php
+
+add_shortcode( 'github_release_download', 'grd_render_github_download_button' );
+
+function grd_render_github_download_button( $atts ) {
+	$atts = shortcode_atts( [
+		'repo_url'    => '',
+		'button_text' => 'Download from GitHub',
+	], $atts, 'github_release_download' );
+
+	if ( empty( $atts['repo_url'] ) ) {
+		return '<p><em>Missing GitHub repository URL.</em></p>';
+	}
+
+	// Enqueue the shortcode JS directly
+	wp_enqueue_script(
+		'grd-shortcode-download',
+		plugin_dir_url( __FILE__ ) . 'assets/js/github-release-shortcode.js',
+		[],
+		GITHUB_RELEASE_DOWNLOAD_VERSION,
+		true
+	);
+
+	$repo_url    = esc_url( $atts['repo_url'] );
+	$repo_path   = str_replace( 'https://github.com/', '', $repo_url );
+	$api_url     = esc_url( "https://api.github.com/repos/{$repo_path}/releases/latest" );
+	$button_text = esc_html( $atts['button_text'] );
+
+	ob_start();
+	?>
+	<div class="github-release-download-shortcode">
+		<button
+			class="github-release-button"
+			data-api-url="<?php echo esc_attr( $api_url ); ?>"
+			data-original-text="<?php echo $button_text; ?>"
+		>
+			<?php echo $button_text; ?>
+		</button>
+	</div>
+	<?php
+	return ob_get_clean();
+}
