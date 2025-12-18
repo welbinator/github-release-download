@@ -3,7 +3,7 @@ import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
 import { PanelBody, TextControl } from '@wordpress/components';
 
 export default function Edit({ attributes, setAttributes }) {
-	const { buttonText, repoUrl } = attributes;
+	const { buttonText, repoUrl, customClasses } = attributes;
 
 	return (
 		<>
@@ -19,6 +19,12 @@ export default function Edit({ attributes, setAttributes }) {
 						label="Button Text"
 						value={buttonText}
 						onChange={(value) => setAttributes({ buttonText: value })}
+					/>
+					<TextControl
+						label="Custom Classes"
+						value={customClasses}
+						onChange={(value) => setAttributes({ customClasses: value })}
+						help="Add custom CSS classes (e.g., .my-class .another-class)"
 					/>
 				</PanelBody>
 			</InspectorControls>
