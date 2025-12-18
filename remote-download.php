@@ -45,6 +45,10 @@ function create_block_remote_download_block_init() {
 	register_block_type(
 		__DIR__ . '/build/github-release-download'
 	);
+	
+	register_block_type(
+		__DIR__ . '/build/wordpress-repo-download'
+	);
 }
 add_action( 'init', 'create_block_remote_download_block_init' );
 
@@ -105,4 +109,56 @@ function grd_handle_github_release_data() {
 	}
 
 	wp_send_json_error( [ 'message' => 'No downloadable assets found' ] );
+}
+
+// 🔌 Handle WordPress.org API AJAX calls
+add_action( 'wp_ajax_get_wordpress_repo_data', 'wprd_handle_wordpress_repo_data' );
+add_action( 'wp_ajax_nopriv_get_wordpress_repo_data', 'wprd_handle_wordpress_repo_data' );
+
+function wprd_handle_wordpress_repo_data() {
+	$slug = isset( $_GET['slug'] ) ? sanitize_text_field( $_GET['slug'] ) : '';
+	$type = isset( $_GET['type'] ) ? sanitize_text_field( $_GET['type'] ) : '';
+
+	if ( empty( $slug ) || empty( $type ) ) {
+		wp_send_json_error( [ 'message' => 'Missing plugin/theme slug or type' ] );
+	}
+
+	if ( ! in_array( $type, [ 'plugin', 'theme' ], true ) ) {
+		wp_send_json_error( [ 'message' => 'Invalid type. Must be "plugin" or "theme"' ] );
+	}
+
+	$cache_key = 'wp_repo_' . $type . '_' . md5( $slug );
+	$data      = get_transient( $cache_key );
+
+	if ( false === $data ) {
+		if ( $type === 'plugin' ) {
+			$api_url = 'https://api.wordpress.org/plugins/info/1.2/?action=plugin_information&slug=' . $slug;
+		} else {
+			$api_url = 'https://api.wordpress.org/themes/info/1.2/?action=theme_information&slug=' . $slug;
+		}
+
+		$response = wp_remote_get( $api_url );
+
+		if ( is_wp_error( $response ) ) {
+			wp_send_json_error( [ 'message' => 'WordPress.org request failed' ] );
+		}
+
+		$body = wp_remote_retrieve_body( $response );
+		$data = json_decode( $body, true );
+
+		if ( json_last_error() !== JSON_ERROR_NONE || empty( $data ) ) {
+			wp_send_json_error( [ 'message' => 'Invalid WordPress.org response' ] );
+		}
+
+		set_transient( $cache_key, $data, HOUR_IN_SECONDS );
+	}
+
+	// Check for download link
+	if ( ! empty( $data['download_link'] ) ) {
+		wp_send_json_success( [
+			'download_url' => $data['download_link']
+		] );
+	}
+
+	wp_send_json_error( [ 'message' => 'No download link found' ] );
 }

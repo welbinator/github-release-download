@@ -33,7 +33,7 @@ function my_plugin_check_for_updates($transient) {
     $download_url = $release['assets'][0]['browser_download_url'];
 
     // Get the current version of the installed plugin
-    $plugin_slug = 'github-release-download/github-release-download.php';
+    $plugin_slug = 'remote-download/remote-download.php';
     $current_version = $transient->checked[$plugin_slug] ?? null;
     // error_log('Current version: ' . ($current_version ?? 'unknown'));
 
@@ -52,7 +52,7 @@ function my_plugin_check_for_updates($transient) {
         'package'     => $download_url,
         'url'         => $release['html_url'],
         'tested'      => get_bloginfo('version'),
-        'requires'    => GITHUB_RELEASE_DOWNLOAD_MIN_WP_VERSION,
+        'requires'    => REMOTE_DOWNLOAD_MIN_WP_VERSION,
     ];
 
     // error_log("Update available: $latest_version");

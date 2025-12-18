@@ -1,0 +1,24 @@
+{
+  "apiVersion": 2,
+  "name": "wordpress-repo-download/block",
+  "title": "WordPress Repo Download",
+  "category": "widgets",
+  "icon": "download",
+  "description": "A button that downloads plugins or themes from the WordPress.org repository.",
+  "supports": {
+    "html": false
+  },
+  "attributes": {
+    "buttonText": {
+      "type": "string",
+      "default": "Download from WordPress.org"
+    },
+    "repoUrl": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./style-index.css",
+  "viewScript": "file:./view.js"
+}
