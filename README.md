@@ -146,8 +146,37 @@ remote-download/
 │   └── wordpress-shortcode.php
 ├── remote-download.php             # Main plugin file
 ├── github-update.php               # Auto-updater from GitHub
-└── package.json                    # Build dependencies
+├── package.json                    # Build dependencies
+├── composer.json                   # PHP dev dependencies
+├── phpcs.xml                       # PHP CodeSniffer configuration
+└── phpstan.neon                    # PHPStan configuration
 ```
+
+## Development
+
+### Build Process
+
+```bash
+npm run start    # Development mode with hot reload
+npm run build    # Production build to build/ directory
+```
+
+### Code Quality
+
+The plugin uses PHP CodeSniffer with WordPress Coding Standards and PHPStan for static analysis:
+
+```bash
+composer install          # Install dev dependencies
+composer phpcs            # Check coding standards
+composer phpcbf           # Auto-fix coding standards
+composer phpstan          # Run static analysis
+```
+
+**Standards Met:**
+- ✅ WordPress Coding Standards (WordPress-Core ruleset)
+- ✅ PHPStan Level 5 with WordPress extensions
+- ✅ PHP 7.4+ compatibility
+- ✅ Security best practices (input sanitization, output escaping, nonce verification)
 
 ## Author
 
@@ -158,6 +187,14 @@ remote-download/
 GPL-2.0-or-later
 
 ## Changelog
+
+### 1.1.3
+- Comprehensive code quality improvements
+- Fixed all security issues (input sanitization with `wp_unslash()`, proper output escaping)
+- Added complete PHPDoc documentation to all functions
+- Fixed all WordPress Coding Standards violations
+- Passed PHPStan Level 5 static analysis
+- Added Composer dev dependencies for code quality tools
 
 ### 1.1.2
 - Added custom CSS classes support for blocks and shortcodes
