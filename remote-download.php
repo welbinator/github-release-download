@@ -78,7 +78,7 @@ function grd_handle_github_release_data() {
 		$response = wp_remote_get( $url, [
 			'headers' => [
 				'Accept'     => 'application/vnd.github+json',
-				'User-Agent' => 'GitHubReleaseDownload/1.0'
+				'User-Agent' => 'RemoteDownload/1.0'
 			],
 		] );
 
