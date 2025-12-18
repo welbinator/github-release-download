@@ -1,23 +1,24 @@
-import { getBlockDefaultClassName } from '@wordpress/blocks';
-
 export default function save({ attributes }) {
-	const { buttonText, repoUrl } = attributes;
-
-	const blockProps = {
-		className: getBlockDefaultClassName('github-release-download/block'),
-	};
+	const { buttonText, repoUrl, customClasses } = attributes;
 
 	const repoPath = repoUrl.replace('https://github.com/', '');
+	
+	// Process custom classes - remove dots and trim
+	const processedClasses = customClasses 
+		? customClasses.split(/\s+/).map(cls => cls.replace(/^\./, '')).filter(Boolean).join(' ')
+		: '';
+	
+	const buttonClassName = processedClasses 
+		? `github-release-button ${processedClasses}`
+		: 'github-release-button';
 
 	return (
-		<div {...blockProps}>
-			<button
-				className="github-release-button"
-				data-api-url={`https://api.github.com/repos/${repoPath}/releases/latest`}
-				data-original-text={buttonText}
-			>
-				{buttonText}
-			</button>
-		</div>
+		<button
+			className={buttonClassName}
+			data-api-url={`https://api.github.com/repos/${repoPath}/releases/latest`}
+			data-original-text={buttonText}
+		>
+			{buttonText}
+		</button>
 	);
 }

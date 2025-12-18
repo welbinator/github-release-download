@@ -16,6 +16,10 @@
 	  "repoUrl": {
 		"type": "string",
 		"default": ""
+	  },
+	  "customClasses": {
+		"type": "string",
+		"default": ""
 	  }
 	},
 	"editorScript": "file:./index.js",

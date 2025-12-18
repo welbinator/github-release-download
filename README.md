@@ -19,7 +19,7 @@ A WordPress plugin that adds customizable download buttons for releases from Git
 - ✅ Automatic fallback from release assets to source ZIP for GitHub releases
 - ✅ 1-hour transient caching for improved performance
 - ✅ Works with both plugins and themes from WordPress.org
-- ✅ Customizable button text
+- ✅ Customizable button text and CSS classes
 - ✅ Clean, modern button styling
 - ✅ No PHP rendering required - JavaScript handles everything client-side via AJAX
 
@@ -40,6 +40,7 @@ A WordPress plugin that adds customizable download buttons for releases from Git
 2. In the block settings sidebar, enter:
    - **GitHub Repo URL**: e.g., `https://github.com/user/repository`
    - **Button Text**: Custom text for your button (default: "Download from GitHub")
+   - **Custom Classes** (optional): Add custom CSS classes (e.g., `.my-class .another-class`)
 3. Publish your page
 
 #### WordPress Repo Download Block
@@ -47,6 +48,7 @@ A WordPress plugin that adds customizable download buttons for releases from Git
 1. Add the "WordPress Repo Download" block to your page/post
 2. In the block settings sidebar, enter:
    - **WordPress.org URL**: e.g., `https://wordpress.org/plugins/plugin-slug` or `https://wordpress.org/themes/theme-slug`
+   - **Custom Classes** (optional): Add custom CSS classes (e.g., `.my-class .another-class`)
    - **Button Text**: Custom text for your button (default: "Download from WordPress.org")
 3. Publish your page
 
@@ -54,31 +56,35 @@ A WordPress plugin that adds customizable download buttons for releases from Git
 
 #### GitHub Release Download Shortcode
 
-```
-[github_release_download repo_url="https://github.com/user/repository" button_text="Download Latest Release"]
+``` custom_classes=".my-btn .custom-style"]
 ```
 
 **Attributes:**
 - `repo_url` (required) - Full GitHub repository URL
 - `button_text` (optional) - Custom button text (default: "Download from GitHub")
+- `custom_classes` (optional) - Custom CSS classes to add to the button (e.g., `.btn-primary .large`)
 
-**Example:**
+**Examples:**
 ```
+[github_release_download repo_url="https://github.com/welbinator/roadmap-wp" button_text="Get Roadmap WP"]
+
+[github_release_download repo_url="https://github.com/user/repo" button_text="Download" custom_classes=".btn-primary .btn-lg
 [github_release_download repo_url="https://github.com/welbinator/roadmap-wp" button_text="Get Roadmap WP"]
 ```
 
-#### WordPress Repo Download Shortcode
-
-```
-[wordpress_repo_download repo_url="https://wordpress.org/plugins/plugin-slug" button_text="Download Plugin"]
+#### WordPress Repo Download Shortcode custom_classes=".my-btn .custom-style"]
 ```
 
 **Attributes:**
 - `repo_url` (required) - Full WordPress.org plugin or theme URL
 - `button_text` (optional) - Custom button text (default: "Download from WordPress.org")
+- `custom_classes` (optional) - Custom CSS classes to add to the button (e.g., `.btn-primary .large`)
 
 **Examples:**
 ```
+[wordpress_repo_download repo_url="https://wordpress.org/plugins/roadmap-wp" button_text="Download Now"]
+
+[wordpress_repo_download repo_url="https://wordpress.org/themes/twentytwentyfive" button_text="Get Theme" custom_classes=".btn-primary .btn-lg
 [wordpress_repo_download repo_url="https://wordpress.org/plugins/roadmap-wp" button_text="Download Now"]
 
 [wordpress_repo_download repo_url="https://wordpress.org/themes/twentytwentyfive" button_text="Get Theme"]
@@ -152,6 +158,10 @@ remote-download/
 GPL-2.0-or-later
 
 ## Changelog
+
+### 1.1.2
+- Added custom CSS classes support for blocks and shortcodes
+- Removed wrapper div from block and shortcode output for cleaner HTML
 
 ### 1.1.0
 - Added WordPress Repo Download block and shortcode
