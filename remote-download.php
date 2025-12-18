@@ -28,6 +28,14 @@ if ( file_exists( REMOTE_DOWNLOAD_PATH . 'github-update.php' ) ) {
 	include_once REMOTE_DOWNLOAD_PATH . 'github-update.php';
 }
 
+if ( file_exists( REMOTE_DOWNLOAD_PATH . 'shortcodes/github-shortcode.php' ) ) {
+	include_once REMOTE_DOWNLOAD_PATH . 'shortcodes/github-shortcode.php';
+}
+
+if ( file_exists( REMOTE_DOWNLOAD_PATH . 'shortcodes/wordpress-shortcode.php' ) ) {
+	include_once REMOTE_DOWNLOAD_PATH . 'shortcodes/wordpress-shortcode.php';
+}
+
 /**
  * Behind the scenes, it also registers all assets so they can be enqueued
  * through the block editor in the corresponding context.
