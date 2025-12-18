@@ -1,9 +1,15 @@
 /**
- * The following styles get applied inside the editor only.
- *
- * Replace them with your own styles or remove the file completely.
+ * Editor styles for GitHub Release Download block.
  */
 
-.wp-block-create-block-github-release-download {
-	border: 1px dotted #f00;
+.wp-block-github-release-download-block {
+	.github-release-button {
+		background-color: #0073aa;
+		color: #fff;
+		border: none;
+		padding: 12px 24px;
+		font-size: 16px;
+		cursor: pointer;
+		border-radius: 4px;
+	}
 }

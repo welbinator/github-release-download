@@ -1,12 +1,24 @@
 /**
- * The following styles get applied both on the front of your site
- * and in the editor.
- *
- * Replace them with your own styles or remove the file completely.
+ * Frontend styles for GitHub Release Download block.
  */
 
-.wp-block-create-block-github-release-download {
-	background-color: #21759b;
-	color: #fff;
-	padding: 2px;
+.wp-block-github-release-download-block {
+	.github-release-button {
+		background-color: #0073aa;
+		color: #fff;
+		border: none;
+		padding: 12px 24px;
+		font-size: 16px;
+		cursor: pointer;
+		border-radius: 4px;
+		transition: background-color 0.2s ease;
+
+		&:hover {
+			background-color: #005177;
+		}
+
+		&:active {
+			background-color: #003f5c;
+		}
+	}
 }
