@@ -31,6 +31,12 @@ jobs:
             --exclude 'src' \
             --exclude 'package-lock.json' \
             --exclude 'package.json' \
+            --exclude 'vendor' \
+            --exclude 'composer.json' \
+            --exclude 'composer.lock' \
+            --exclude 'webpack.config.js'
+            --exclude 'phpcs.xml' \
+            --exclude 'phpstan.neon' \
             
 
 
