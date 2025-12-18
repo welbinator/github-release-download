@@ -1,22 +1,37 @@
 <?php
+/**
+ * WordPress.org Repository Download Shortcode
+ *
+ * @package RemoteDownload
+ */
 
 add_shortcode( 'wordpress_repo_download', 'wprd_render_wordpress_download_button' );
 
+/**
+ * Render WordPress.org repository download button shortcode.
+ *
+ * @param array $atts Shortcode attributes.
+ * @return string HTML output.
+ */
 function wprd_render_wordpress_download_button( $atts ) {
-	$atts = shortcode_atts( [
-		'repo_url'       => '',
-		'button_text'    => 'Download from WordPress.org',
-		'custom_classes' => '',
-	], $atts, 'wordpress_repo_download' );
+	$atts = shortcode_atts(
+		array(
+			'repo_url'       => '',
+			'button_text'    => 'Download from WordPress.org',
+			'custom_classes' => '',
+		),
+		$atts,
+		'wordpress_repo_download'
+	);
 
 	if ( empty( $atts['repo_url'] ) ) {
 		return '<p><em>Missing WordPress.org repository URL.</em></p>';
 	}
 
-	// Extract slug and type from WordPress.org URL
+	// Extract slug and type from WordPress.org URL.
 	$repo_url = $atts['repo_url'];
-	$slug = '';
-	$type = '';
+	$slug     = '';
+	$type     = '';
 
 	if ( strpos( $repo_url, '/plugins/' ) !== false ) {
 		$type = 'plugin';
@@ -31,17 +46,21 @@ function wprd_render_wordpress_download_button( $atts ) {
 	}
 
 	$button_text = esc_html( $atts['button_text'] );
-	
-	// Process custom classes - remove dots and build class string
+
+	// Process custom classes - remove dots and build class string.
 	$custom_classes = '';
 	if ( ! empty( $atts['custom_classes'] ) ) {
-		$classes_array = array_filter( array_map( 'trim', explode( ' ', $atts['custom_classes'] ) ) );
-		$classes_array = array_map( function( $class ) {
-			return ltrim( $class, '.' );
-		}, $classes_array );
+		$classes_array  = array_filter( array_map( 'trim', explode( ' ', $atts['custom_classes'] ) ) );
+		$classes_array  = array_map(
+			// phpcs:ignore Universal.NamingConventions.NoReservedKeywordParameterNames.classFound -- Appropriate for CSS class.
+			function ( $class ) {
+				return ltrim( $class, '.' );
+			},
+			$classes_array
+		);
 		$custom_classes = ' ' . implode( ' ', $classes_array );
 	}
-	
+
 	$button_class = 'wordpress-repo-button' . $custom_classes;
 
 	ob_start();
@@ -50,9 +69,9 @@ function wprd_render_wordpress_download_button( $atts ) {
 		class="<?php echo esc_attr( $button_class ); ?>"
 		data-slug="<?php echo esc_attr( $slug ); ?>"
 		data-type="<?php echo esc_attr( $type ); ?>"
-		data-original-text="<?php echo $button_text; ?>"
+		data-original-text="<?php echo esc_attr( $button_text ); ?>"
 	>
-		<?php echo $button_text; ?>
+		<?php echo esc_html( $button_text ); ?>
 	</button>
 	<?php
 	return ob_get_clean();

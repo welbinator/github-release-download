@@ -1,0 +1,13 @@
+includes:
+    - vendor/szepeviktor/phpstan-wordpress/extension.neon
+
+parameters:
+    level: 5
+    paths:
+        - remote-download.php
+        - github-update.php
+        - shortcodes/
+    excludePaths:
+        - node_modules/
+        - vendor/
+        - build/

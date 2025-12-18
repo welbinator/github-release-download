@@ -1,68 +1,94 @@
-<?php 
+<?php
+/**
+ * GitHub Auto-Updater
+ *
+ * @package RemoteDownload
+ */
 
+// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedNamespaceFound -- Established namespace.
 namespace RemoteDownload\GitHubUpdater;
 
-function my_plugin_check_for_updates($transient) {
-    // error_log("check for updates called");
+/**
+ * Check for plugin updates from GitHub.
+ *
+ * @param object $transient The update transient.
+ * @return object Modified transient.
+ */
+function my_plugin_check_for_updates( $transient ) {
+	// phpcs:ignore Squiz.PHP.CommentedOutCode.Found -- Keeping for debugging.
+	// error_log("check for updates called");.
 
-    $owner = 'welbinator';
-    $repo = 'remote-download';
+	$owner = 'welbinator';
+	$repo  = 'remote-download';
 
-    if (empty($transient->checked)) {
-        return $transient;
-    }
+	if ( empty( $transient->checked ) ) {
+		return $transient;
+	}
 
-    // Fetch the latest release from GitHub
-    $api_url = "https://api.github.com/repos/$owner/$repo/releases/latest";
-    $response = wp_remote_get($api_url, [
-        'headers' => ['User-Agent' => 'WordPress']
-    ]);
+	// Fetch the latest release from GitHub.
+	$api_url  = "https://api.github.com/repos/$owner/$repo/releases/latest";
+	$response = wp_remote_get(
+		$api_url,
+		array(
+			'headers' => array( 'User-Agent' => 'WordPress' ),
+		)
+	);
 
-    if (is_wp_error($response)) {
-        error_log('GitHub API Error: ' . $response->get_error_message());
-        return $transient;
-    }
+	if ( is_wp_error( $response ) ) {
+		// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Debug logging for auto-updater.
+		error_log( 'GitHub API Error: ' . $response->get_error_message() );
+		return $transient;
+	}
 
-    $release = json_decode(wp_remote_retrieve_body($response), true);
-    if (!isset($release['tag_name'], $release['assets'][0]['browser_download_url'])) {
-        error_log('No valid release data or assets found.');
-        return $transient;
-    }
+	$release = json_decode( wp_remote_retrieve_body( $response ), true );
+	if ( ! isset( $release['tag_name'], $release['assets'][0]['browser_download_url'] ) ) {
+		// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Debug logging for auto-updater.
+		error_log( 'No valid release data or assets found.' );
+		return $transient;
+	}
 
-    $latest_version = ltrim($release['tag_name'], 'v'); // Remove "v" prefix if present
-    $download_url = $release['assets'][0]['browser_download_url'];
+	$latest_version = ltrim( $release['tag_name'], 'v' ); // Remove "v" prefix if present.
+	$download_url   = $release['assets'][0]['browser_download_url'];
 
-    // Get the current version of the installed plugin
-    $plugin_slug = 'remote-download/remote-download.php';
-    $current_version = $transient->checked[$plugin_slug] ?? null;
-    // error_log('Current version: ' . ($current_version ?? 'unknown'));
+	// Get the current version of the installed plugin.
+	$plugin_slug     = 'remote-download/remote-download.php';
+	$current_version = $transient->checked[ $plugin_slug ] ?? null;
+	// phpcs:ignore Squiz.PHP.CommentedOutCode.Found -- Keeping for debugging.
+	// error_log('Current version: ' . ($current_version ?? 'unknown'));.
 
+	// Skip adding update if current version equals latest version.
+	if ( $current_version && version_compare( $latest_version, $current_version, '<=' ) ) {
+		// phpcs:ignore Squiz.PHP.CommentedOutCode.Found -- Keeping for debugging.
+		// error_log("Current version ($current_version) is up to date.");.
+		return $transient;
+	}
 
-    // Skip adding update if current version equals latest version
-    if ($current_version && version_compare($latest_version, $current_version, '<=')) {
-        // error_log("Current version ($current_version) is up to date.");
-        return $transient;
-    }
+	// Add update data to the transient.
+	// @phpstan-ignore-next-line.
+	$transient->response[ $plugin_slug ] = (object) array(
+		'slug'        => $plugin_slug,
+		'plugin'      => $plugin_slug,
+		'new_version' => $latest_version,
+		'package'     => $download_url,
+		'url'         => $release['html_url'],
+		'tested'      => get_bloginfo( 'version' ),
+		'requires'    => REMOTE_DOWNLOAD_MIN_WP_VERSION,
+	);
 
-    // Add update data to the transient
-    $transient->response[$plugin_slug] = (object) [
-        'slug'        => $plugin_slug,
-        'plugin'      => $plugin_slug,
-        'new_version' => $latest_version,
-        'package'     => $download_url,
-        'url'         => $release['html_url'],
-        'tested'      => get_bloginfo('version'),
-        'requires'    => REMOTE_DOWNLOAD_MIN_WP_VERSION,
-    ];
-
-    // error_log("Update available: $latest_version");
-    return $transient;
+	// phpcs:ignore Squiz.PHP.CommentedOutCode.Found -- Keeping for debugging.
+	// error_log("Update available: $latest_version");.
+	return $transient;
 }
-add_filter('pre_set_site_transient_update_plugins', __NAMESPACE__ . '\\my_plugin_check_for_updates');
+add_filter( 'pre_set_site_transient_update_plugins', __NAMESPACE__ . '\\my_plugin_check_for_updates' );
 
-
-function github_plugin_updater_user_agent($args) {
-    $args['user-agent'] = 'WordPress/' . get_bloginfo('version') . '; ' . home_url();
-    return $args;
+/**
+ * Add custom user agent for HTTP requests.
+ *
+ * @param array $args HTTP request arguments.
+ * @return array Modified arguments.
+ */
+function github_plugin_updater_user_agent( $args ) {
+	$args['user-agent'] = 'WordPress/' . get_bloginfo( 'version' ) . '; ' . home_url();
+	return $args;
 }
-add_filter('http_request_args', __NAMESPACE__ . '\\github_plugin_updater_user_agent', 10, 1);
+add_filter( 'http_request_args', __NAMESPACE__ . '\\github_plugin_updater_user_agent', 10, 1 );
