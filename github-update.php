@@ -6,7 +6,7 @@ function my_plugin_check_for_updates($transient) {
     // error_log("check for updates called");
 
     $owner = 'welbinator';
-    $repo = 'github-release-download';
+    $repo = 'remote-download';
 
     if (empty($transient->checked)) {
         return $transient;

@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Remote Download
  * Description:       Block that adds a button users can use to download the latest release from your github repo.
- * Version:           1.1.0
+ * Version:           1.1.1
  * Requires at least: 6.7
  * Requires PHP:      7.4
  * Author:            James Welbes
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Define plugin constants
-define( 'REMOTE_DOWNLOAD_VERSION', '1.1.0' );
+define( 'REMOTE_DOWNLOAD_VERSION', '1.1.1' );
 define( 'REMOTE_DOWNLOAD_PATH', plugin_dir_path( __FILE__ ) );
 define( 'REMOTE_DOWNLOAD_URL', plugin_dir_url( __FILE__ ) );
 define( 'REMOTE_DOWNLOAD_MIN_WP_VERSION', '5.8' );
@@ -26,6 +26,14 @@ define( 'REMOTE_DOWNLOAD_MIN_PHP_VERSION', '7.4' );
 
 if ( file_exists( REMOTE_DOWNLOAD_PATH . 'github-update.php' ) ) {
 	include_once REMOTE_DOWNLOAD_PATH . 'github-update.php';
+}
+
+if ( file_exists( REMOTE_DOWNLOAD_PATH . 'shortcodes/github-shortcode.php' ) ) {
+	include_once REMOTE_DOWNLOAD_PATH . 'shortcodes/github-shortcode.php';
+}
+
+if ( file_exists( REMOTE_DOWNLOAD_PATH . 'shortcodes/wordpress-shortcode.php' ) ) {
+	include_once REMOTE_DOWNLOAD_PATH . 'shortcodes/wordpress-shortcode.php';
 }
 
 /**
