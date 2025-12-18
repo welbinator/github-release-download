@@ -33,16 +33,14 @@ function wprd_render_wordpress_download_button( $atts ) {
 
 	ob_start();
 	?>
-	<div class="wordpress-repo-download-shortcode">
-		<button
-			class="wordpress-repo-button"
-			data-slug="<?php echo esc_attr( $slug ); ?>"
-			data-type="<?php echo esc_attr( $type ); ?>"
-			data-original-text="<?php echo $button_text; ?>"
-		>
-			<?php echo $button_text; ?>
-		</button>
-	</div>
+	<button
+		class="wordpress-repo-button"
+		data-slug="<?php echo esc_attr( $slug ); ?>"
+		data-type="<?php echo esc_attr( $type ); ?>"
+		data-original-text="<?php echo $button_text; ?>"
+	>
+		<?php echo $button_text; ?>
+	</button>
 	<?php
 	return ob_get_clean();
 }

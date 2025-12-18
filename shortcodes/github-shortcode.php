@@ -22,15 +22,13 @@ function grd_render_github_download_button( $atts ) {
 
 	ob_start();
 	?>
-	<div class="github-release-download-shortcode">
-		<button
-			class="github-release-button"
-			data-api-url="<?php echo esc_attr( $api_url ); ?>"
-			data-original-text="<?php echo $button_text; ?>"
-		>
-			<?php echo $button_text; ?>
-		</button>
-	</div>
+	<button
+		class="github-release-button"
+		data-api-url="<?php echo esc_attr( $api_url ); ?>"
+		data-original-text="<?php echo $button_text; ?>"
+	>
+		<?php echo $button_text; ?>
+	</button>
 	<?php
 	return ob_get_clean();
 }
