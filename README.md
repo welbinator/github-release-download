@@ -48,15 +48,16 @@ A WordPress plugin that adds customizable download buttons for releases from Git
 1. Add the "WordPress Repo Download" block to your page/post
 2. In the block settings sidebar, enter:
    - **WordPress.org URL**: e.g., `https://wordpress.org/plugins/plugin-slug` or `https://wordpress.org/themes/theme-slug`
-   - **Custom Classes** (optional): Add custom CSS classes (e.g., `.my-class .another-class`)
    - **Button Text**: Custom text for your button (default: "Download from WordPress.org")
+   - **Custom Classes** (optional): Add custom CSS classes (e.g., `.my-class .another-class`)
 3. Publish your page
 
 ### Using Shortcodes
 
 #### GitHub Release Download Shortcode
 
-``` custom_classes=".my-btn .custom-style"]
+```
+[github_release_download repo_url="https://github.com/user/repository" button_text="Download Latest Release" custom_classes=".my-btn .custom-style"]
 ```
 
 **Attributes:**
@@ -68,11 +69,13 @@ A WordPress plugin that adds customizable download buttons for releases from Git
 ```
 [github_release_download repo_url="https://github.com/welbinator/roadmap-wp" button_text="Get Roadmap WP"]
 
-[github_release_download repo_url="https://github.com/user/repo" button_text="Download" custom_classes=".btn-primary .btn-lg
-[github_release_download repo_url="https://github.com/welbinator/roadmap-wp" button_text="Get Roadmap WP"]
+[github_release_download repo_url="https://github.com/user/repo" button_text="Download" custom_classes=".btn-primary .btn-lg"]
 ```
 
-#### WordPress Repo Download Shortcode custom_classes=".my-btn .custom-style"]
+#### WordPress Repo Download Shortcode
+
+```
+[wordpress_repo_download repo_url="https://wordpress.org/plugins/plugin-slug" button_text="Download Plugin" custom_classes=".my-btn .custom-style"]
 ```
 
 **Attributes:**
@@ -84,10 +87,7 @@ A WordPress plugin that adds customizable download buttons for releases from Git
 ```
 [wordpress_repo_download repo_url="https://wordpress.org/plugins/roadmap-wp" button_text="Download Now"]
 
-[wordpress_repo_download repo_url="https://wordpress.org/themes/twentytwentyfive" button_text="Get Theme" custom_classes=".btn-primary .btn-lg
-[wordpress_repo_download repo_url="https://wordpress.org/plugins/roadmap-wp" button_text="Download Now"]
-
-[wordpress_repo_download repo_url="https://wordpress.org/themes/twentytwentyfive" button_text="Get Theme"]
+[wordpress_repo_download repo_url="https://wordpress.org/themes/twentytwentyfive" button_text="Get Theme" custom_classes=".btn-primary .btn-lg"]
 ```
 
 ## How It Works
